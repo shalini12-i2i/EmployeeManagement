@@ -12,6 +12,7 @@ import com.ideas2it.employee.model.Employee;
 public class EmployeeService {
     int employeeId = 1;
     Map<Integer, Employee> employees = new HashMap<Integer, Employee>();
+
     /**
      * Creates an employee record.
      * @param fullName - Name of employee
@@ -37,14 +38,8 @@ public class EmployeeService {
      * @return displays particular employee record
      */
     public String displayEmployee(int employeeId) {
-        StringBuilder employeeList = new StringBuilder();
         Employee employee =  employees.get(employeeId);
-        employeeList.append(employee.getFullName() + "    ");
-        employeeList.append(employee.getDesignation() + "    ");
-        employeeList.append(employee.getEmail() + "    ");
-        employeeList.append(employee.getPhone() + "    ");
-        employeeList.append(employee.getSalary() + "    ");
-        return employeeList.toString();
+        return employee.toString();
     }
 
     /**
@@ -65,26 +60,32 @@ public class EmployeeService {
      */
     public boolean updateEmployee(int choice, String updatedField, int employeeId) {
         Employee employee = employees.get(employeeId);
+        boolean isUpdated = false;
         switch(choice) {
            case 1 :
+               isUpdated = true;
                employee.setFullName(updatedField);
                break;
            case 2 :
+               isUpdated = true;
                employee.setDesignation(updatedField);
                break;
            case 3 :
+               isUpdated = true;
                employee.setEmail(updatedField);
                break;
            case 4 :
+               isUpdated = true;
                employee.setPhone(Long.parseLong(updatedField));
                break;
            case 5 :
+               isUpdated = true;
                employee.setSalary(Long.parseLong(updatedField));
                break;
            default:
                break;
        }
-        return false;
+       return isUpdated;
     }
 
     /**
@@ -92,16 +93,11 @@ public class EmployeeService {
      * @return displays all employees as list object.
      */
     public String displayAllEmployees() {
-        StringBuilder employeeList = new StringBuilder();
+        String employeeList = "" ;
         for(Map.Entry<Integer, Employee> entry : employees.entrySet()) {
             Employee employee = entry.getValue();
-            employeeList.append(employee.getFullName() + "    ");
-            employeeList.append(employee.getDesignation() + "    ");
-            employeeList.append(employee.getEmail() + "    ");
-            employeeList.append(employee.getPhone() + "    ");
-            employeeList.append(employee.getSalary() + "    ");
-            employeeList.append(";");
+            employeeList = employeeList + employee.toString() + ";";
         }
-        return employeeList.toString();
+        return employeeList;
     }
 }

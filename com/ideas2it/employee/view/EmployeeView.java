@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import com.ideas2it.employee.controller.EmployeeController;
+
 /**
  * Contains method to get details to create new employee
  * and passes on params for controller.
@@ -14,12 +15,13 @@ public class EmployeeView {
     InputStreamReader inputStreamReader = new InputStreamReader(System.in);
     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
     EmployeeController employeeController = new EmployeeController();
+
     /**
      * Gets input details to update from
      * the user as updated name , designation , email ,
      * phone and salary .
      */
-    public void createEmployee() throws IOException {
+    private void createEmployee() throws IOException {
         System.out.println("Enter Full name ");
         String fullName = bufferedReader.readLine();
         System.out.println("Enter Designation");
@@ -37,7 +39,6 @@ public class EmployeeView {
         }
     }
 
-
     /**
      * Gets EmployeeId from the user.
      * @return user entered employeeId.
@@ -52,8 +53,8 @@ public class EmployeeView {
      * Gets and prints details as  name , designation , email ,
      * phone and salary for a specific user defined employee.
      */
-    public void displayEmployee() throws IOException {
-        String[] employeeList = employeeController.displayEmployee(getEmployeeId()).split("    ");
+    private void displayEmployee() throws IOException {
+        String[] employeeList = employeeController.displayEmployee(getEmployeeId()).split(" ");
         System.out.println("Name : " + employeeList[0]);
         System.out.println("Designation : " + employeeList[1]);
         System.out.println("Email : " + employeeList[2]);
@@ -65,7 +66,7 @@ public class EmployeeView {
      * Gets and prints details as  name , designation , email ,
      * phone and salary for a all employees.
      */
-    public void displayAllEmployee() {
+    private void displayAllEmployee() {
         String[] employeeList = employeeController.displayAllEmployees().split(";");
         System.out.println("************************************************");
         System.out.print("Name  Designation  Email Id  PhoneNumber  Salary");
@@ -82,7 +83,7 @@ public class EmployeeView {
      * the user as employee Id and prints
      * user message .
      */
-    public void deleteDetails() throws IOException {
+    private void deleteDetails() throws IOException {
         if(employeeController.deleteEmployee(getEmployeeId())) {
             System.out.println("Successfully Deleted!!!");
         } else {
@@ -90,45 +91,50 @@ public class EmployeeView {
         }
     }
 
-
     /**
      * Contains methods to get details to update from
      * the user as updated name , designation , email ,
      * phone and salary .
      */
-    public void updateEmployeeDetails() throws IOException {
+    private void updateEmployeeDetails() throws IOException {
         System.out.println("Enter the field to Update\n 1. Update Name \n 2. Update Designation \n " +
                           "3. Update Email \n 4. Update Phone \n 5.Update Salary\nEnter Your Choice\n");
         int choice = Integer.parseInt(bufferedReader.readLine());
+        boolean isUpdated = false ;
         switch(choice) {
             case 1 :
                 System.out.println("Enter your updated Name");
                 String updatedName = bufferedReader.readLine();
-                employeeController.updateEmployee(choice, updatedName, getEmployeeId());
+                isUpdated = employeeController.updateEmployee(choice, updatedName, getEmployeeId());
                 break;
             case 2 :
                 System.out.println("Enter your updated Designation");
                 String updatedDesignation = bufferedReader.readLine();
-                employeeController.updateEmployee(choice, updatedDesignation, getEmployeeId());
+                isUpdated = employeeController.updateEmployee(choice, updatedDesignation, getEmployeeId());
                 break;
             case 3 :
                 System.out.println("Enter your updated Email Id");
                 String updatedEmail = bufferedReader.readLine();
-                employeeController.updateEmployee(choice, updatedEmail, getEmployeeId());
+                isUpdated = employeeController.updateEmployee(choice, updatedEmail, getEmployeeId());
                 break;
             case 4 :
                 System.out.println("Enter your updated Phone Number");
                 String  updatedPhone = bufferedReader.readLine();
-                employeeController.updateEmployee(choice, updatedPhone, getEmployeeId());
+                isUpdated = employeeController.updateEmployee(choice, updatedPhone, getEmployeeId());
                 break;
             case 5 :
                 System.out.println("Enter your updated  Salary");
                 String updatedSalary = bufferedReader.readLine();
-                employeeController.updateEmployee(choice, updatedSalary, getEmployeeId());
+                isUpdated = employeeController.updateEmployee(choice, updatedSalary, getEmployeeId());
                 break;
             default:
                 System.out.println("Invalid Choice !!!");
                 break;
+        }
+        if(isUpdated) {
+            System.out.println("Updated Successfully!!");
+        } else {
+            System.out.println("Cannot Update Details!");
         }
     }
 

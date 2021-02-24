@@ -1,4 +1,5 @@
 package com.ideas2it.employee.model;
+
 /**
  * Employee model contains the details of employee.
  * @author Shalini
@@ -57,5 +58,9 @@ public class Employee {
 
     public void setSalary(long salary) {
         this.salary = salary;
+    }
+    
+    public String toString() {
+       return getFullName() + " " + getDesignation() + " " + getEmail() + " " + getPhone() + " " + getSalary();
     }
 }
